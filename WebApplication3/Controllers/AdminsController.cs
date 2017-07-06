@@ -12,7 +12,7 @@ namespace WebApplication3.Controllers
 {
     public class AdminsController : Controller
     {
-        
+        pjt3hEntities db = new pjt3hEntities();
 
         // GET: Admins
         public ActionResult Index()

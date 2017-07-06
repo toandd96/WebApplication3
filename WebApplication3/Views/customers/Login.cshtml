@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>Đăng nhập</h2>
+@using (@Html.BeginForm())
+{<h2 class="text-danger">@ViewBag.message</h2>
+    @Html.AntiForgeryToken()
+   <span>Tài khoản</span> @Html.TextBox("txttaikhoan")<br />
+    <span>Mật khẩu</span><input name="txtmatkhau" class="" type="password"/>
+    
+ <br />   <input type="submit" class="btn btn-success" name="btnsubmit" value="Đăng nhập"/>
+}
+

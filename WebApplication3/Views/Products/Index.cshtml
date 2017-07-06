@@ -1,0 +1,68 @@
+﻿@model IEnumerable<WebApplication3.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <button class="btn btn-primary" onclick="location.href='@Url.Action("Create","Products")'">Tạo mới</button>
+</p>
+
+
+<div class="form-horizontal">
+    <table class="table table-bordered table-responsive" id="product">
+        <tr>
+            <th>
+                Tên sản phẩm
+            </th>
+            <th>
+                Ảnh
+            </th>
+            <th>
+                Giá
+            </th>
+            <th>
+                Số lượng
+            </th>
+            <th>
+               Thông tin sản phẩm
+            </th>
+            
+            <th>
+                Mô tả sản phẩm
+            </th>
+            <th width="150">Thao tác</th>
+        </tr>
+
+    </table>
+</div>
+@section Scripts{ 
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Content/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript">
+        $(document).ready(function () {
+            $.getJSON("GetAllProduct", function (data) {
+                var tr;
+                for (var i = 0; i < data.length; i++) {
+                    tr = $('<tr/>');
+                    tr.append("<td>" + data[i].name + "</td>");
+                    tr.append("<td><img src='" + data[i].image + "' width='150'></td>");
+                    tr.append("<td>" + data[i].price + "</td>");
+                    tr.append("<td>" + data[i].quantity + "</td>");
+                    tr.append("<td>" + data[i].information + "</td>");
+                    tr.append("<td>" + data[i].description + "</td>");
+                    tr.append("<td><a href='Products/Edit/" +
+                        data[i].id + "'>Sửa</a> | <a href='Products/Details/" +
+                        data[i].id + "'>Chi tiết</a> |  <a href='Products/Delete/" +
+                        data[i].id + "'>Xóa</a></td>");
+                    $('table').append(tr);
+                }
+                $('#product').DataTable();
+            });
+        });
+</script>
+}

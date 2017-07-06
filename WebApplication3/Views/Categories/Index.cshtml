@@ -1,0 +1,58 @@
+﻿@model PagedList.IPagedList<WebApplication3.Models.Category>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <button class="btn btn-primary" onclick="location.href='@Url.Action("Create","Category")'">Tạo mới</button>
+
+    @using (@Html.BeginForm())
+    {
+        <div class="row col-md-12">
+            <div class="col-md-7"></div>
+            <div class="col-md-5">
+
+                <b>Tên loại sản phẩm</b>
+                @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+                <input type="submit" value="Search" />
+                
+            </div>
+        </div>}
+    <br/>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("name", "Index", new { sortorder = ViewBag.NameSort, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                Status
+            </th>
+            <th>Thao tác</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.status)
+                </td>
+                <td>
+                    <button class="btn btn-success" onclick="location.href='@Url.Action("Edit", "Categories", new { id = item.id })'">Sửa</button> 
+                    <button class="btn btn-info" onclick="location.href='@Url.Action("Details", "Categories", new { id = item.id })'">Chi tiết</button> 
+                    <button class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "Categories", new { id = item.id })'">Xóa</button>
+                </td>
+            </tr>
+        }
+
+    </table><br />
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) của @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

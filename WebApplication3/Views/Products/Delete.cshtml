@@ -1,0 +1,98 @@
+﻿@model WebApplication3.Models.Product
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Xóa</h2>
+
+<h3>Bạn có chắc chắn muốn xóa điều này?</h3>
+<div>
+    <h4>Sản phẩm</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.image)
+        </dt>
+
+        <dd>
+            <img src="@Model.image" width="150"/>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.information)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.information)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.datecreate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datecreate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.description)
+        </dd>
+
+        
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Supplier.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Supplier.name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Chấp nhận" class="btn btn-danger" /> |
+            <button class="btn btn-info" onclick="location.href='@Url.Action("Edit","Products")'">Quay trở lại</button>
+        </div>
+    }
+</div>

@@ -201,6 +201,7 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\customersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
@@ -318,6 +319,7 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
@@ -682,19 +684,18 @@
     <Content Include="Views\Categories\Details.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
-    <Content Include="Content\Create.cshtml" />
+    <Content Include="Views\customers\Create.cshtml" />
     <Content Include="Views\customers\Delete.cshtml" />
     <Content Include="Views\customers\Details.cshtml" />
     <Content Include="Views\customers\Edit.cshtml" />
     <Content Include="Views\customers\Index.cshtml" />
-    <Content Include="Views\customers\Register.cshtml" />
     <Content Include="Views\Shared\_LayoutPageADM.cshtml" />
     <Content Include="Views\Admins\Create.cshtml" />
     <Content Include="Views\Admins\Delete.cshtml" />
     <Content Include="Views\Admins\Details.cshtml" />
     <Content Include="Views\Admins\Edit.cshtml" />
     <Content Include="Views\Admins\Index.cshtml" />
-    <Content Include="Views\customers\Login.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

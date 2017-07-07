@@ -10,6 +10,7 @@ using WebApplication3.Models;
 
 namespace WebApplication3.Controllers
 {
+    [Authorize]
     public class AdminsController : Controller
     {
         pjt3hEntities db = new pjt3hEntities();

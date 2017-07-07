@@ -7,6 +7,7 @@ using WebApplication3.Models;
 using PagedList;
 namespace WebApplication3.Controllers
 {
+    [Authorize]
     public class CategoriesController : Controller
     {
         private pjt3hEntities db = new pjt3hEntities();

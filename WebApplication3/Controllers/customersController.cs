@@ -13,6 +13,7 @@ using System.Text;
 
 namespace WebApplication3.Controllers
 {
+    [Authorize]
     public class customersController : Controller
     {
         private pjt3hEntities db = new pjt3hEntities();

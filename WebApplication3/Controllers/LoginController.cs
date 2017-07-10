@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication3.Models;
 using Microsoft.Owin.Security;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace WebApplication3.Controllers
 {
@@ -16,20 +18,32 @@ namespace WebApplication3.Controllers
         // GET: Login
         public ActionResult Index()
         {
-            return View();
+            if (Session["Taikhoan"] != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+                return View();
         }
 
         [HttpPost]
         public ActionResult Index(string username, string password, string returnUrl)
         {
-            var user = db.customers.SingleOrDefault(c => c.email == username);
-            if (user == null)
+            
+            
+            var admin = db.Admins.SingleOrDefault(c => c.username == username);
+            var cutadmpw = admin.password.ToString();
+            //lấy khoảng trắng trong chuỗi
+            string getspace = cutadmpw.TrimEnd();
+            //xóa khoảng trắng
+            
+            if (admin == null)
             {
                 ViewBag.Error = "Tên đăng nhập có thể chưa được nhập";
             }
             else
             {
-                if (password == user.password)
+                if (password == getspace.ToString())
                 {
                     var ident = new ClaimsIdentity(new[] {
                         new Claim(ClaimTypes.NameIdentifier,username),
@@ -61,6 +75,21 @@ namespace WebApplication3.Controllers
             }
             return RedirectToAction("Index","Products");
         }
+        public static string EncodePassword(string originalPassword)
+        {
+            //Declarations
+            Byte[] originalBytes;
+            Byte[] encodedBytes;
+            MD5 md5;
 
-}
+            //Instantiate MD5CryptoServiceProvider, get bytes for original password and compute hash (encoded password)
+            md5 = new MD5CryptoServiceProvider();
+            originalBytes = ASCIIEncoding.Default.GetBytes(originalPassword);
+            encodedBytes = md5.ComputeHash(originalBytes);
+
+            //Convert encoded bytes back to a 'readable' string
+            return BitConverter.ToString(encodedBytes);
+        }
+
+    }
 }

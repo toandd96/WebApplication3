@@ -10,7 +10,6 @@
 namespace WebApplication3.Models
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
     using System.Collections.Generic;
     
     public partial class customer
@@ -22,21 +21,13 @@ namespace WebApplication3.Models
         }
     
         public int id { get; set; }
-        [Required,Display(Name="Tên người dùng"),StringLength(30),MinLength(1)]
         public string name { get; set; }
-        [Required,Display(Name="Giới tính người dùng")]
         public string gender { get; set; }
-        [Required,Display(Name="Email người dùng"),RegularExpression("/[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/igm")]
         public string email { get; set; }
-        [Required,Display(Name="Địa chỉ người dùng")]
         public string address { get; set; }
-        [Required,Display(Name="Số điện thoại người dùng"),DataType(DataType.PhoneNumber),MinLength(10),MaxLength(13)]
         public string phone { get; set; }
-        [Required,Display(Name="Mật khẩu"),DataType(DataType.Password),MinLength(8)]
         public string password { get; set; }
-        [Required,Compare("password",ErrorMessage = "The password and confirmation password do not match."),Display(Name ="Xác nhận mật khẩu"),DataType(DataType.Password)]
         public string confirmpassword { get; set; }
-        [Display(Name="Trạng thái")]
         public string status { get; set; }
         public Nullable<System.DateTime> datecreate { get; set; }
     

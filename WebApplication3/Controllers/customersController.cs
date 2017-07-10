@@ -133,72 +133,58 @@ namespace WebApplication3.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [ValidateInput(false)]
-        public ActionResult Register([Bind(Include = "name,phone,email,password,confirmpassword,datecreate,gender,status,address")] customer customer)
-        {
-            if (ModelState.IsValid)
-            {
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[ValidateInput(false)]
+        //public ActionResult Register([Bind(Include = "name,phone,email,password,confirmpassword,datecreate,gender,status,address")] customer customer)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
                 
-                var a = db.customers.ToList();
-                var mahoapass = EncodePassword(customer.password);
-                customer.password = mahoapass;
-                customer.confirmpassword = mahoapass;
-                customer.status = "NULL";
-                customer.address = "NULL";
-                customer.datecreate = DateTime.Now;
-                customer.gender = "NULL";
-                db.customers.Add(customer);
-                db.SaveChanges();
-                return View("Login");
+        //        var a = db.customers.ToList();
+        //        var mahoapass = EncodePassword(customer.password);
+        //        customer.password = mahoapass;
+        //        customer.confirmpassword = mahoapass;
+        //        customer.status = "NULL";
+        //        customer.address = "NULL";
+        //        customer.datecreate = DateTime.Now;
+        //        customer.gender = "NULL";
+        //        db.customers.Add(customer);
+        //        db.SaveChanges();
+        //        return View("Login");
                 
                 
-            }
-            return View(customer);
-        }
-        public static string EncodePassword(string originalPassword)
-        {
-            //Declarations
-            Byte[] originalBytes;
-            Byte[] encodedBytes;
-            MD5 md5;
-
-            //Instantiate MD5CryptoServiceProvider, get bytes for original password and compute hash (encoded password)
-            md5 = new MD5CryptoServiceProvider();
-            originalBytes = ASCIIEncoding.Default.GetBytes(originalPassword);
-            encodedBytes = md5.ComputeHash(originalBytes);
-
-            //Convert encoded bytes back to a 'readable' string
-            return BitConverter.ToString(encodedBytes);
-        }
+        //    }
+        //    return View(customer);
+        //}
+        
         [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [ValidateInput(false)]
-        public ActionResult Login(FormCollection f)
-        {
-            if (ModelState.IsValid)
-            {
-                string taikhoan = f["txttaikhoan"].ToString();
-                string matkhau = f["txtmatkhau"].ToString();
-                string mahoapass = EncodePassword(matkhau);
-                customer customer = db.customers.SingleOrDefault(c => c.email == taikhoan && c.password == mahoapass);
-                if (customer != null)
-                {
-                    ViewBag.message = ("Đăng nhập thành công");
-                    Session["Email"] = taikhoan;
-                    Session["password"] = matkhau;
-                    return RedirectToAction("/");
-                }
-                ViewBag.message = "Tài khoản hoặc mật khẩu của bạn không chính xác";
-                return View();
-            }
-            return RedirectToAction("/");
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[ValidateInput(false)]
+        //public ActionResult Login(FormCollection f)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        string taikhoan = f["txttaikhoan"].ToString();
+        //        string matkhau = f["txtmatkhau"].ToString();
+        //        string mahoapass = EncodePassword(matkhau);
+        //        customer customer = db.customers.SingleOrDefault(c => c.email == taikhoan && c.password == mahoapass);
+        //        if (customer != null)
+        //        {
+        //            ViewBag.message = ("Đăng nhập thành công");
+        //            Session["Email"] = taikhoan;
+        //            Session["password"] = matkhau;
+        //            return RedirectToAction("/");
+        //        }
+        //        ViewBag.message = "Tài khoản hoặc mật khẩu của bạn không chính xác";
+        //        return View();
+        //    }
+        //    return RedirectToAction("/");
+        //}
     }
 }

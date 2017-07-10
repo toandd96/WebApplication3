@@ -1,0 +1,18 @@
+﻿@using WebApplication3.Models;
+@model IEnumerable<Supplier>
+
+@{ pjt3hEntities db1 = new pjt3hEntities(); }
+
+
+<ul class="nav nav-pills nav-stacked">
+    @foreach (var item in Model)
+    {
+        <li>
+            
+                <h4 class="panel-title"><a href="@Url.Action("Index","SuppliersUser",new { @id=item.id})"> <span class="pull-right">(@db1.Products.Where(c=>c.supplierid==item.id).Count())</span>@item.name</a></h4>
+            
+        </li>
+    }
+</ul>
+
+

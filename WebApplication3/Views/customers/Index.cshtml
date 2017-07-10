@@ -2,10 +2,11 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageADM.cshtml";
 }
 
 <h2>Index</h2>
-
+<button class="btn btn-primary" onclick="location.href='@Url.Action("Create","customers")'">Tạo mới</button> </p>
 
 <table class="table">
     <tr>

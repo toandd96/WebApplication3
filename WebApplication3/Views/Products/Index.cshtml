@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageADM.cshtml";
 }
 
 <h2>Index</h2>
@@ -45,7 +46,7 @@
 <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">
         $(document).ready(function () {
-            $.getJSON("GetAllProduct", function (data) {
+            $.getJSON("Products/GetAllProduct", function (data) {
                 var tr;
                 for (var i = 0; i < data.length; i++) {
                     tr = $('<tr/>');

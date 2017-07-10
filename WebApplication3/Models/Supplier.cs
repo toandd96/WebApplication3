@@ -11,8 +11,7 @@ namespace WebApplication3.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Supplier
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,15 +21,10 @@ namespace WebApplication3.Models
         }
     
         public int id { get; set; }
-        [Display(Name="Tên nhà cung cấp"),Required]
         public string name { get; set; }
-[Display(Name="Địa chỉ nhà cung cấp"),Required]
         public string address { get; set; }
-        [Display(Name="Số điện thọai sản phẩm"),Required]
         public string phone { get; set; }
-        [Required,Display(Name="Email")]
         public string email { get; set; }
-        [Display(Name="Trạng thái sản phẩm"),Required]
         public string status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

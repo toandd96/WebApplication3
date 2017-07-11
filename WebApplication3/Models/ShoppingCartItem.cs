@@ -7,14 +7,16 @@ namespace WebApplication3.Models
 {
     public class ShoppingCartItem
     {
-        public int id { get; set; }
+        public int Id { get; set; }
 
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public decimal? quantity { get; set; }
+        public int? Quantity { get; set; }
 
-        public int price { get; set; }
+        public double? Price { get; set; }
 
-        public decimal? total { get; set; }
+        public string Image { get; set; }
+
+        public double? Total { get; set; }
     }
 }

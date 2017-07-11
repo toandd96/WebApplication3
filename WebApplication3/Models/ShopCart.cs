@@ -16,11 +16,11 @@ namespace WebApplication3.Models
 
         public void AddToCart(ShoppingCartItem item)
         {
-            if(ListItem.Where(s=>s.id==item.id).Any())
+            if(ListItem.Where(s=>s.Id==item.Id).Any())
             {
-                var myItem = ListItem.Single(s => s.id == item.id);
-                myItem.quantity += myItem.quantity;
-                myItem.total = myItem.quantity * myItem.price;
+                var myItem = ListItem.Single(s => s.Id == item.Id);
+                myItem.Quantity += myItem.Quantity;
+                myItem.Total = myItem.Quantity * myItem.Price;
             }
             else
             {
@@ -30,7 +30,7 @@ namespace WebApplication3.Models
 
         public bool RemoveFromCart(int lngProductSellId)
         {
-            ShoppingCartItem exitsitem = ListItem.Where(i=>i.id==lngProductSellId).SingleOrDefault();
+            ShoppingCartItem exitsitem = ListItem.Where(i=>i.Id==lngProductSellId).SingleOrDefault();
             if(exitsitem!=null)
             {
                 ListItem.Remove(exitsitem);
@@ -40,11 +40,11 @@ namespace WebApplication3.Models
 
         public bool UpdateQuantity(int lngProductSellId,int intQuantity)
         {
-            ShoppingCartItem exitsitem = ListItem.Where(i => i.id == lngProductSellId).SingleOrDefault();
+            ShoppingCartItem exitsitem = ListItem.Where(i => i.Id == lngProductSellId).SingleOrDefault();
             if(exitsitem!=null)
             {
-                exitsitem.quantity = intQuantity;
-                exitsitem.total = exitsitem.quantity * exitsitem.price;
+                exitsitem.Quantity = intQuantity;
+                exitsitem.Total = exitsitem.Quantity * exitsitem.Price;
             }
             return true;
         }

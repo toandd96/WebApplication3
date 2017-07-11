@@ -787,10 +787,10 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\SuppliersUser\Index.cshtml" />
     <Content Include="Views\CategoryUser\Details.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

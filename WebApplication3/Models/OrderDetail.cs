@@ -15,11 +15,12 @@ namespace WebApplication3.Models
     public partial class OrderDetail
     {
         public int orderid { get; set; }
-        public Nullable<int> productid { get; set; }
+        public int productid { get; set; }
         public Nullable<double> price { get; set; }
         public Nullable<int> quantity { get; set; }
     
         public virtual Order Order { get; set; }
+        public virtual Order Order1 { get; set; }
         public virtual Product Product { get; set; }
     }
 }

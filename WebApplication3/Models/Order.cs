@@ -14,6 +14,13 @@ namespace WebApplication3.Models
     
     public partial class Order
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Order()
+        {
+            this.OrderDetails = new HashSet<OrderDetail>();
+            this.OrderDetails1 = new HashSet<OrderDetail>();
+        }
+    
         public int id { get; set; }
         public Nullable<System.DateTime> orderdate { get; set; }
         public Nullable<int> customerid { get; set; }
@@ -21,8 +28,12 @@ namespace WebApplication3.Models
         public string shipnote { get; set; }
         public string status { get; set; }
         public string shipphone { get; set; }
+        public Nullable<int> orderid { get; set; }
     
         public virtual customer customer { get; set; }
-        public virtual OrderDetail OrderDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderDetail> OrderDetails1 { get; set; }
     }
 }

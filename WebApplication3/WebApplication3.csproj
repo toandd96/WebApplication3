@@ -198,6 +198,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminsController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CategoryUserController.cs" />
     <Compile Include="Controllers\customersController.cs" />
@@ -246,6 +247,9 @@
     <Compile Include="Models\Product.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ShopCart.cs" />
+    <Compile Include="Models\ShoppingCartItem.cs" />
+    <Compile Include="Models\ShoppingCartModel.cs" />
     <Compile Include="Models\Supplier.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -786,6 +790,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

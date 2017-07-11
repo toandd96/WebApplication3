@@ -48,7 +48,7 @@ namespace WebApplication3.Controllers
                 if(customer.password==EncodePassword(password))
                 {
                     Session["TaiKhoan"] = customer.id;
-                    return RedirectToAction("ThanhToan", "GioHang");
+                    return RedirectToAction("ThanhToan", "Cart");
                 }
             }
             return View();

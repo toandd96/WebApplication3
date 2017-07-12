@@ -64,7 +64,7 @@ namespace WebApplication3.Controllers
         public ActionResult SessionLogOff()
         {
             HttpContext.GetOwinContext().Authentication.SignOut();
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Index", "Home");
         }
 
         private ActionResult RedirectToLocal(string returnUrl)

@@ -14,6 +14,7 @@ namespace WebApplication3.Controllers
         pjt3hEntities db = new pjt3hEntities();
         public ActionResult Index()
         {
+
             return View(db.Products.ToList());
         }
 
@@ -45,7 +46,7 @@ namespace WebApplication3.Controllers
             var customer = db.customers.SingleOrDefault(c=>c.email==email);
             if(customer!=null)
             {
-                if(customer.password==EncodePassword(password))
+                if(customer.password==password)
                 {
                     Session["TaiKhoan"] = customer.id;
                     return RedirectToAction("ThanhToan", "Cart");

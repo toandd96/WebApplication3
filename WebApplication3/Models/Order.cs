@@ -18,7 +18,6 @@ namespace WebApplication3.Models
         public Order()
         {
             this.OrderDetails = new HashSet<OrderDetail>();
-            this.OrderDetails1 = new HashSet<OrderDetail>();
         }
     
         public int id { get; set; }
@@ -28,12 +27,11 @@ namespace WebApplication3.Models
         public string shipnote { get; set; }
         public string status { get; set; }
         public string shipphone { get; set; }
-        public Nullable<int> orderid { get; set; }
-    
+
+        public double? total { get; set; }
+
         public virtual customer customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderDetail> OrderDetails1 { get; set; }
     }
 }

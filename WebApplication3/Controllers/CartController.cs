@@ -15,7 +15,7 @@ namespace WebApplication3.Controllers
 
         {
             ViewBag.Tittle = "Giỏ Hàng";
-            ShoppingCartModel model =new ShoppingCartModel();
+            ShoppingCartModel model = new ShoppingCartModel();
             model.Cart = (ShopCart)Session["Cart"];
             return View(model);
         }
@@ -23,10 +23,10 @@ namespace WebApplication3.Controllers
         public ActionResult ThemVaoGioHang(int id)
         {
             var P = db.Products.Single(p => p.id == id);
-            if(P!=null)
+            if (P != null)
             {
                 ShopCart objCart = (ShopCart)Session["Cart"];
-                if(objCart==null)
+                if (objCart == null)
                 {
                     objCart = new ShopCart();
                 }
@@ -43,13 +43,13 @@ namespace WebApplication3.Controllers
                 Session["Cart"] = objCart;
                 return RedirectToAction("Index", "Cart");
             }
-            return RedirectToAction("Index","Cart");
+            return RedirectToAction("Index", "Cart");
         }
 
-        public ActionResult UpdateQuantity(int proID,int quantity)
+        public ActionResult UpdateQuantity(int proID, int quantity)
         {
             ShopCart objCart = (ShopCart)Session["Cart"];
-            if(objCart!=null)
+            if (objCart != null)
             {
                 objCart.UpdateQuantity(proID, quantity);
                 Session["Cart"] = objCart;
@@ -59,7 +59,7 @@ namespace WebApplication3.Controllers
         public ActionResult XoaSanPham(int id)
         {
             ShopCart objCart = new ShopCart();
-            if(objCart!=null)
+            if (objCart != null)
             {
                 objCart.RemoveFromCart(id);
                 Session["Cart"] = objCart;
@@ -69,7 +69,7 @@ namespace WebApplication3.Controllers
 
         public ActionResult ThanhToan()
         {
-            if(Session["TaiKhoan"]==null||Session["TaiKhoan"].ToString()==string.Empty)
+            if (Session["TaiKhoan"] == null || Session["TaiKhoan"].ToString() == string.Empty)
             {
                 return RedirectToAction("Login", "Home");
             }
@@ -81,7 +81,7 @@ namespace WebApplication3.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult ThanhToan(string ShipAdress,string ShipPhone)
+        public ActionResult ThanhToan(string ShipAdress, string ShipPhone)
         {
             if (Session["TaiKhoan"] == null || Session["TaiKhoan"].ToString() == string.Empty)
             {
@@ -90,6 +90,7 @@ namespace WebApplication3.Controllers
             int customId = int.Parse(Session["TaiKhoan"].ToString());
             var customer = db.customers.Find(customId);
             Order order = new Order();
+            OrderDetail orderDetails = new OrderDetail();
             order.customerid = customId;
             order.orderdate = DateTime.Now;
             order.status = "Chưa";
@@ -104,22 +105,26 @@ namespace WebApplication3.Controllers
                 order.shipphone = customer.phone;
             }
             else order.shipphone = ShipPhone;
-            db.Orders.Add(order);
+            var maxitem = db.Orders.Count();
             ShoppingCartModel model = new ShoppingCartModel();
+            
             model.Cart = (ShopCart)Session["Cart"];
-            foreach(var item in model.Cart.ListItem)
+            foreach (var item in model.Cart.ListItem)
             {
-                OrderDetail orderDetails = new OrderDetail();
-                orderDetails.orderid = order.id;
+
+                orderDetails.orderid = maxitem + 1;
                 orderDetails.price = item.Price;
                 orderDetails.productid = item.Id;
                 orderDetails.quantity = item.Quantity;
-                db.OrderDetails.Add(orderDetails);
+                order.total = item.Total;
             }
+            db.Orders.Add(order);
+            db.SaveChanges();
+            db.OrderDetails.Add(orderDetails);
             db.SaveChanges();
             Session["Cart"] = null;
-            TempData["msg"] = "Thành công";
-            return RedirectToAction("Index", "GioHang");
+            TempData["msg"] = " Chúc mừng bạn đã đặt hàng thành công";
+            return RedirectToAction("Index", "Cart");
         }
 
         public ActionResult ThanhToanThanhCong()

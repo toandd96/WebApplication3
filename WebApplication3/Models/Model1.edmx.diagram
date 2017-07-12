@@ -16,7 +16,6 @@
         <AssociationConnector Association="pjt3hModel.FK_Product_Category" />
         <AssociationConnector Association="pjt3hModel.FK_Order_customer" />
         <AssociationConnector Association="pjt3hModel.FK_OrderDetails_Orders" />
-        <AssociationConnector Association="pjt3hModel.FK_OrderDetails_Orders1" />
         <AssociationConnector Association="pjt3hModel.FK_OrderDetails_Product" />
         <AssociationConnector Association="pjt3hModel.FK_Product_Supplier" />
       </Diagram>

@@ -46,7 +46,7 @@
             @Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <img src="@Model.image" class="img-responsive img-thumbnail" />
-                <input type="file" name="upload" id="image" />
+                <input type="file" name="upload" id="image" value="@Model.image"/>
             </div>
         </div>
 

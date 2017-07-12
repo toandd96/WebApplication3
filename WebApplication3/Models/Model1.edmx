@@ -72,6 +72,7 @@
           <Property Name="information" Type="nvarchar(max)" />
           <Property Name="datecreate" Type="datetime" />
           <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="total" Type="float" />
         </EntityType>
         <EntityType Name="Suppliers">
           <Key>
@@ -115,18 +116,6 @@
             </Principal>
             <Dependent Role="OrderDetails">
               <PropertyRef Name="orderid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderDetails_Orders1">
-          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
-          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OrderDetails">
-              <PropertyRef Name="productid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -183,10 +172,6 @@
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderDetails_Orders1" Association="Self.FK_OrderDetails_Orders1">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="OrderDetails" EntitySet="OrderDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_OrderDetails_Product" Association="Self.FK_OrderDetails_Product">
             <End Role="Products" EntitySet="Products" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
@@ -222,10 +207,6 @@
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderDetails_Orders" Association="pjt3hModel.FK_OrderDetails_Orders">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderDetails_Orders1" Association="pjt3hModel.FK_OrderDetails_Orders1">
             <End Role="Order" EntitySet="Orders" />
             <End Role="OrderDetail" EntitySet="OrderDetails" />
           </AssociationSet>
@@ -280,7 +261,6 @@
           <Property Name="price" Type="Double" />
           <Property Name="quantity" Type="Int32" />
           <NavigationProperty Name="Order" Relationship="pjt3hModel.FK_OrderDetails_Orders" FromRole="OrderDetail" ToRole="Order" />
-          <NavigationProperty Name="Order1" Relationship="pjt3hModel.FK_OrderDetails_Orders1" FromRole="OrderDetail" ToRole="Order" />
           <NavigationProperty Name="Product" Relationship="pjt3hModel.FK_OrderDetails_Product" FromRole="OrderDetail" ToRole="Product" />
         </EntityType>
         <EntityType Name="Order">
@@ -294,10 +274,8 @@
           <Property Name="shipnote" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="status" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="shipphone" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="orderid" Type="Int32" />
           <NavigationProperty Name="customer" Relationship="pjt3hModel.FK_Order_customer" FromRole="Order" ToRole="customer" />
           <NavigationProperty Name="OrderDetails" Relationship="pjt3hModel.FK_OrderDetails_Orders" FromRole="Order" ToRole="OrderDetail" />
-          <NavigationProperty Name="OrderDetails1" Relationship="pjt3hModel.FK_OrderDetails_Orders1" FromRole="Order" ToRole="OrderDetail" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -316,6 +294,7 @@
           <NavigationProperty Name="Category" Relationship="pjt3hModel.FK_Product_Category" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="OrderDetails" Relationship="pjt3hModel.FK_OrderDetails_Product" FromRole="Product" ToRole="OrderDetail" />
           <NavigationProperty Name="Supplier" Relationship="pjt3hModel.FK_Product_Supplier" FromRole="Product" ToRole="Supplier" />
+          <Property Name="total" Type="Double" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -372,18 +351,6 @@
             </Principal>
             <Dependent Role="OrderDetail">
               <PropertyRef Name="orderid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderDetails_Orders1">
-          <End Type="pjt3hModel.Order" Role="Order" Multiplicity="1" />
-          <End Type="pjt3hModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OrderDetail">
-              <PropertyRef Name="productid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -463,7 +430,6 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="pjt3hModel.Order">
               <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="orderid" ColumnName="orderid" />
                 <ScalarProperty Name="shipphone" ColumnName="shipphone" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="shipnote" ColumnName="shipnote" />
@@ -477,6 +443,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="pjt3hModel.Product">
               <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="datecreate" ColumnName="datecreate" />
                 <ScalarProperty Name="information" ColumnName="information" />

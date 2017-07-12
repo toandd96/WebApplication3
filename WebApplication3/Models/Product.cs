@@ -30,6 +30,7 @@ namespace WebApplication3.Models
         public string information { get; set; }
         public Nullable<System.DateTime> datecreate { get; set; }
         public string description { get; set; }
+        public Nullable<double> total { get; set; }
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

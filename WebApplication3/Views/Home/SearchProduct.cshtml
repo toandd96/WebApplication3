@@ -4,7 +4,7 @@
 }
 
 @using WebApplication3.Models;
-@model List<Product>
+@model IQueryable<Product>
 @{pjt3hEntities db = new pjt3hEntities(); }
 <h2 class="title text-center">Danh sách sản phẩm</h2>
 @foreach (var item in Model)

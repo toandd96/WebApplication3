@@ -17,7 +17,7 @@
         });
     });
 </script>
-<h2>Index</h2>
+<h2>Giỏ hàng</h2>
 <h2>@ViewBag.msg</h2>
 @if (Model != null && Model.Cart != null)
 {
@@ -65,6 +65,8 @@
     </table>
     <div class="span6" style="text-align:right">
         <a href='@Url.Action("ThanhToan","Cart")' class="btn btn-success">Thanh Toán</a>
+        <a href='@Url.Action("Index","Home")' class="btn btn-info">Mua tiếp</a>
+        @*<input type="submit" value="Xóa giỏ hàng" class="btn btn-danger" />*@
     </div>
             }
             else

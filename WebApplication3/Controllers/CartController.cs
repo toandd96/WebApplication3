@@ -41,11 +41,11 @@ namespace WebApplication3.Controllers
                 };
                 objCart.AddToCart(item);
                 Session["Cart"] = objCart;
-                ViewBag.msg = "Thêm thành công sản phẩm";
+               
                 return RedirectToAction("Index", "Cart");
             }
             else
-                ViewBag.msg = "Mặt hàng bạn chọn đã hết xin vui lòng chờ nhập thêm hàng";
+                
             return RedirectToAction("Index", "Cart");
         }
 
@@ -94,6 +94,7 @@ namespace WebApplication3.Controllers
             var customer = db.customers.Find(customId);
             Order order = new Order();
             OrderDetail orderDetails = new OrderDetail();
+            
             order.customerid = customId;
             order.orderdate = DateTime.Now;
             order.status = "Chưa";
@@ -114,13 +115,17 @@ namespace WebApplication3.Controllers
             foreach (var item in model.Cart.ListItem)
             {
                 var product = db.Products.Single(p => p.id == item.Id);
-
+                var category = db.Categories.Single(c => c.id == product.categoryid);
                 orderDetails.orderid = maxitem + 1;
                 orderDetails.price = item.Price;
                 orderDetails.productid = item.Id;
                 orderDetails.quantity = item.Quantity;
                 order.total = item.Total;
                 product.quantity -= item.Quantity;
+                if(product.quantity==0)
+                {
+                    category.status = "Hết hàng";
+                }
             }
             
             db.Orders.Add(order);
@@ -134,6 +139,14 @@ namespace WebApplication3.Controllers
 
         public ActionResult ThanhToanThanhCong()
         {
+            return View();
+        }
+        
+        public ActionResult XoaGioHang()
+        {
+            ShopCart objCart = (ShopCart)Session["Cart"];
+            objCart.DeleteAllItems();
+            Session["Cart"] = objCart;
             return View();
         }
     }

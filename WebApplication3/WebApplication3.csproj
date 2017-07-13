@@ -792,6 +792,8 @@
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Cart\ThanhToan.cshtml" />
     <Content Include="Views\Shared\_PartialPage1.cshtml" />
+    <Content Include="Views\Shared\Search.cshtml" />
+    <Content Include="Views\Home\SearchProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

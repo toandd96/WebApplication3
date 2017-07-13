@@ -6,7 +6,7 @@
 {
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4 class="panel-title"><a href="@Url.Action("Index","CategoryUser",new { @id=item.id})"> <span class="pull-right">(@db.Products.Where(c=>c.categoryid==item.id).Count())</span>@item.name</a></h4>
+            <h4 class="panel-title"><a href="@Url.Action("Index","CategoryUser",new { @id=item.id})"> <span class="pull-right ">(@db.Products.Where(c=>c.categoryid==item.id).Count())</span>@item.name</a></h4>
            
         </div>
     </div>

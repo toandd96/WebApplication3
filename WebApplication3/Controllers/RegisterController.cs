@@ -32,7 +32,7 @@ namespace WebApplication3.Controllers
                     db.customers.Add(customer);
                     db.SaveChanges();
                     ModelState.Clear();
-                    ViewBag.Message = customer.name + "đã đăng ký thành công";
+                    ViewBag.msg = customer.name + "đã đăng ký thành công";
                     return RedirectToAction("Index", "Login");
                
             }

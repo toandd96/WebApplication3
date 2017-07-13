@@ -23,7 +23,7 @@ namespace WebApplication3.Controllers
         public ActionResult ThemVaoGioHang(int id)
         {
             var P = db.Products.Single(p => p.id == id);
-            if (P != null)
+            if (P != null && P.quantity != 0)
             {
                 ShopCart objCart = (ShopCart)Session["Cart"];
                 if (objCart == null)
@@ -41,8 +41,11 @@ namespace WebApplication3.Controllers
                 };
                 objCart.AddToCart(item);
                 Session["Cart"] = objCart;
+                ViewBag.msg = "Thêm thành công sản phẩm";
                 return RedirectToAction("Index", "Cart");
             }
+            else
+                ViewBag.msg = "Mặt hàng bạn chọn đã hết xin vui lòng chờ nhập thêm hàng";
             return RedirectToAction("Index", "Cart");
         }
 
@@ -82,7 +85,7 @@ namespace WebApplication3.Controllers
         }
         [HttpPost]
         public ActionResult ThanhToan(string ShipAdress, string ShipPhone)
-        {
+        {  
             if (Session["TaiKhoan"] == null || Session["TaiKhoan"].ToString() == string.Empty)
             {
                 return RedirectToAction("Login", "Home");
@@ -107,17 +110,19 @@ namespace WebApplication3.Controllers
             else order.shipphone = ShipPhone;
             var maxitem = db.Orders.Count();
             ShoppingCartModel model = new ShoppingCartModel();
-            
             model.Cart = (ShopCart)Session["Cart"];
             foreach (var item in model.Cart.ListItem)
             {
+                var product = db.Products.Single(p => p.id == item.Id);
 
                 orderDetails.orderid = maxitem + 1;
                 orderDetails.price = item.Price;
                 orderDetails.productid = item.Id;
                 orderDetails.quantity = item.Quantity;
                 order.total = item.Total;
+                product.quantity -= item.Quantity;
             }
+            
             db.Orders.Add(order);
             db.SaveChanges();
             db.OrderDetails.Add(orderDetails);

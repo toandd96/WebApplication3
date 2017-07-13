@@ -4,8 +4,8 @@
 }
 
 @using WebApplication3.Models;
-@model List<Product> 
-    @{pjt3hEntities db = new pjt3hEntities(); }
+@model List<Product>
+@{pjt3hEntities db = new pjt3hEntities(); }
 <h2 class="title text-center">Danh sách sản phẩm</h2>
 @foreach (var item in Model)
 {
@@ -13,9 +13,9 @@
         <div class="product-image-wrapper">
             <div class="single-products">
                 <div class="productinfo text-center">
-                    <img src="@item.image" alt="" width="150" onclick="location.href='@Url.Action("Details","CategoryUser",new { id=@item.id})'"/>
+                    <img src="@item.image" alt="" width="150" onclick="location.href='@Url.Action("Details","CategoryUser",new { id=@item.id})'" />
                     <h2>Giá: @string.Format("{0:0,0}", item.price)</h2>
-                    <p>@item.name @*(@item.quantity)*@</p>
+                    <p>@item.name</p>
                     <a href="/Cart/ThemVaoGioHang/@item.id" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                 </div>
                 @*<div class="product-overlay">

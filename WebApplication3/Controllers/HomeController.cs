@@ -16,7 +16,7 @@ namespace WebApplication3.Controllers
         public ActionResult Index()
         {
             
-            return View(db.Products.Take(3).ToList());
+            return View(db.Products.Take(6).ToList());
         }
 
         //public PartialViewResult 
@@ -105,5 +105,12 @@ namespace WebApplication3.Controllers
             }
             return PartialView(category.ToList());
         }
+
+        public PartialViewResult _PartialPage1()
+        {
+            var product=db.Products.SingleOrDefault(c=>c.id)
+            return PartialView();
+        }
+
     }
 }

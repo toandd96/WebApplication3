@@ -356,7 +356,57 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\bg_border.png" />
+    <Content Include="images\gallery1.jpg" />
+    <Content Include="images\gallery2.jpg" />
+    <Content Include="images\gallery3.jpg" />
+    <Content Include="images\gallery4.jpg" />
+    <Content Include="images\girl1.jpg" />
+    <Content Include="images\girl2.jpg" />
+    <Content Include="images\girl3.jpg" />
+    <Content Include="images\iframe1.png" />
+    <Content Include="images\iframe2.png" />
+    <Content Include="images\iframe3.png" />
+    <Content Include="images\iframe4.png" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\map.png" />
+    <Content Include="images\new.png" />
+    <Content Include="images\partner1.png" />
+    <Content Include="images\partner2.png" />
+    <Content Include="images\partner3.png" />
+    <Content Include="images\partner4.png" />
+    <Content Include="images\pricing.png" />
+    <Content Include="images\product1.jpg" />
+    <Content Include="images\product2.jpg" />
+    <Content Include="images\product3.jpg" />
+    <Content Include="images\product4.jpg" />
+    <Content Include="images\product5.jpg" />
+    <Content Include="images\product6.jpg" />
+    <Content Include="images\recommend1.jpg" />
+    <Content Include="images\recommend2.jpg" />
+    <Content Include="images\recommend3.jpg" />
+    <Content Include="images\sale.png" />
+    <Content Include="images\searchicon.png" />
+    <Content Include="images\shipping.jpg" />
+    <Content Include="images\sort_asc.png" />
+    <Content Include="image\1507-1.jpg" />
+    <Content Include="image\1508-1.jpg" />
+    <Content Include="image\ao-khoac-kaki-nu-3220-1.jpg" />
+    <Content Include="image\ao-khoac-nu-3212-1.jpg" />
+    <Content Include="image\ao-khoac-nu-3221-1.jpg" />
+    <Content Include="image\ao-khoac-nu-3284-1.jpg" />
+    <Content Include="image\ao-khoac-nu-3400-1.jpg" />
+    <Content Include="image\ao-khoac-vest-nu-cao-cap-2932-1.jpg" />
+    <Content Include="image\ao-so-mi-nu-3375-1.jpg" />
+    <Content Include="image\ao-thun-nam-co-tru-3164-1.jpg" />
+    <Content Include="image\ao-thun-nu-3373-1.jpg" />
+    <Content Include="image\dam-body-phoi-beo-3399-1.jpg" />
     <Content Include="image\NoProduct.png" />
+    <Content Include="image\quan-jogger-3295-1.jpg" />
+    <Content Include="images\sort_asc_disabled.png" />
+    <Content Include="images\sort_both.png" />
+    <Content Include="images\sort_desc.png" />
+    <Content Include="images\sort_desc_disabled.png" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -795,6 +845,7 @@
     <Content Include="Views\Home\SearchProduct.cshtml" />
     <Content Include="Views\Home\_PartialCate.cshtml" />
     <Content Include="Views\Home\_PartialCateConHang.cshtml" />
+    <Content Include="Views\Home\slide_product.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

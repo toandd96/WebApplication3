@@ -14,36 +14,38 @@
 
 <div class="form-horizontal">
     <table class="table table-bordered table-responsive" id="product">
-        <tr>
-            <th>
-                Tên sản phẩm
-            </th>
-            <th>
-                Ảnh
-            </th>
-            <th>
-                Giá
-            </th>
-            <th>
-                Số lượng
-            </th>
-            <th>
-               Thông tin sản phẩm
-            </th>
-            
-            <th>
-                Mô tả sản phẩm
-            </th>
-            <th width="150">Thao tác</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>
+                    Tên sản phẩm
+                </th>
+                <th>
+                    Ảnh
+                </th>
+                <th>
+                    Giá
+                </th>
+                <th>
+                    Số lượng
+                </th>
+                <th>
+                    Thông tin sản phẩm
+                </th>
 
+                <th>
+                    Mô tả sản phẩm
+                </th>
+                <th width="150">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
     </table>
 </div>
 @section Scripts{ 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
 <script src="~/Content/jquery.dataTables.min.js"></script>
-<script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+@*<script src="~/Scripts/dataTables.bootstrap.min.js"></script>*@
 <script type="text/javascript">
         $(document).ready(function () {
             $.getJSON("Products/GetAllProduct", function (data) {

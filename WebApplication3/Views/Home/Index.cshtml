@@ -3,10 +3,12 @@
     ViewBag.Title = "Home Page";
 }
 <link href="~/Content/PagedList.css" rel="stylesheet" />
-@using WebApplication3.Models;
-@model List<Product>
+@using PagedList.Mvc;
+
+@model PagedList.IPagedList<WebApplication3.Models.Product>
 
 <h2 class="title text-center">Danh sách sản phẩm</h2>
+<div class="col-md-offset-7">@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)</div>
 <div class="col-md-12 row">
     @foreach (var item in Model)
     {
@@ -14,7 +16,7 @@
             <div class="product-image-wrapper" id="">
                 <div class="single-products">
                     <div class="productinfo text-center">
-                        <img src="@item.image" alt="" onclick=""/>
+                        <img src="@item.image" alt="" onclick="" />
                         <h2>Giá: @string.Format("{0:0,0}", item.price)</h2>
                         <p>@item.name</p>
                         <a href="/Cart/ThemVaoGioHang/@item.id" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
@@ -38,4 +40,5 @@
             </div>
         </div>
     }
+
 </div>

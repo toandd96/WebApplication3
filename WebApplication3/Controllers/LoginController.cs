@@ -45,6 +45,7 @@ namespace WebApplication3.Controllers
             {
                 if (password == getspace.ToString())
                 {
+                    Session["admin"] = username;
                     var ident = new ClaimsIdentity(new[] {
                         new Claim(ClaimTypes.NameIdentifier,username),
                     new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
@@ -91,5 +92,11 @@ namespace WebApplication3.Controllers
             return BitConverter.ToString(encodedBytes);
         }
 
+        public ActionResult GetUserName()
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            string claims = identity.Name;
+            return PartialView(claims);
+        }
     }
 }

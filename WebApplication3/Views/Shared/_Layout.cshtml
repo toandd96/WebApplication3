@@ -47,7 +47,10 @@
                             <ul class="nav nav-pills">
                                 <li><a href="#"><i class="fa fa-phone"></i> +84 1688675529</a></li>
                                 <li><a href="#"><i class="fa fa-envelope"></i> daoductoan.tb@gmail.com</a></li>
-                                <li><a href="~/Login/Index">Admin</a></li>
+                                @if (Session["TaiKhoan"] == null)
+                                {
+                                    <li><a href="~/Login/Index">Admin</a></li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -81,11 +84,24 @@
                     <div class="col-sm-8">
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav">
-                                <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-                                <li><a href="@Url.Action("Index","Register")"><i class="fa fa-sign-in"></i> Register</a></li>
+                                @if (Session["TaiKhoan"] != null)
+                                {
+                                    <li><a href="#"><i class="fa fa-user"></i> @Session["NameCustomer"]</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="#"><i class="fa fa-user"></i> Account</a></li>}
+                                @if (Session["TaiKhoan"] == null)
+                                {
+                                    <li><a href="@Url.Action("Index","Register")"><i class="fa fa-sign-in"></i> Register</a></li>}
                                 <li><a href="@Url.Action("ThanhToan","Cart")"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                 <li><a href="@Url.Action("Index","Cart")"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                                <li><a href="@Url.Action("Login","Home")"><i class="fa fa-lock"></i> Login</a></li>
+                                @if (Session["TaiKhoan"] == null)
+                                {
+                                    <li><a href="@Url.Action("Login", "Home")"><i class="fa fa-lock"></i> Login</a></li>}
+                                else
+                                {
+                                    <li><a href="@Url.Action("SessionLogOff","Home")"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>}
                                 @*@Html.Partial("_PartialPage1")*@
                             </ul>
                         </div>
@@ -113,11 +129,11 @@
                                 <li class="dropdown">
                                     <a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
+                                        <li><a href='@Url.Action("SearchProduct","Home",new {namePro="" })'>Products</a></li>
 
                                         <li><a href='@Url.Action("ThanhToan","Cart")'>Checkout</a></li>
                                         <li><a href='@Url.Action("Index","Cart")'>Cart</a></li>
-                                        <li><a href='@Url.Action("Login","Home")'>Login</a></li>
+                                        @*<li><a href='@Url.Action("Login","Home")'>Login</a></li>s*@
                                     </ul>
                                 </li>
                                 <li class="dropdown">
@@ -128,13 +144,16 @@
                                     </ul>
                                 </li>
 
-                                <li><a href="contact-us.html">Contact</a></li>
+                                <li>
+                                    <a href='@Url.Action("Contact","Home")'>Contact</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="search_box pull-right ">
-                            @using (Html.BeginForm("SearchProduct", "Home", FormMethod.Get)) {
+                            @using (Html.BeginForm("SearchProduct", "Home", FormMethod.Get))
+                            {
                                 <input id="txtKeyword" name="namePro" type="text" placeholder="Search" />   @*<input type="submit" value="Search" name="search" />*@
                             }
                         </div>
@@ -424,7 +443,7 @@
                 </div>
             </div>
         </div>
-        @RenderSection("Scripts",required:false)
+        @RenderSection("Scripts", required: false)
     </footer><!--/Footer-->
     @*<script src="~/Scripts/jquery.scrollUp.min.js"></script>*@
     <script src="~/Content/user/js/jquery.scrollUp.min.js"></script>

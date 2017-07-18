@@ -18,6 +18,7 @@ namespace WebApplication3.Models
         public int productid { get; set; }
         public Nullable<double> price { get; set; }
         public Nullable<int> quantity { get; set; }
+        public string image { get; set; }
     
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }

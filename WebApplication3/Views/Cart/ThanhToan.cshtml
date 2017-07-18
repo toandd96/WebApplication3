@@ -61,7 +61,7 @@
             </tr>
         }
         <tr>
-            <td colspan="3"><b>Tổng tiền</b></td>
+            <td colspan="4"><b>Tổng tiền</b></td>
             <td><b>@total.Value.ToString("#,##0") VND</b></td>
         </tr>
     </table>
@@ -108,7 +108,8 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-5">
-                            <input type="submit" value="Thanh Toán" class="btn btn-success" />
+                            <input type="submit" value="Thanh Toán" class="btn btn-success" />|
+                            <input type="button" value="Quay trở lại" class="btn btn-info" onclick="location.href='@Url.Action("Index","Cart")'"/>
                         </div>
                     </div>
                 </div>
@@ -125,8 +126,10 @@
                         <th>Thành tiền</th>
                     </tr>
                     <tr>
-                        <td colspan="4"> Hiện chưa có sản phẩm nào trong giỏ hàng</td>
+                        <td colspan="5"> Hiện chưa có sản phẩm nào trong giỏ hàng</td>
                     </tr>
+                    
                 </table>
+               <input type="button" value="Mua tiếp" class="btn btn-info col-md-offset-10 " onclick="location.href='@Url.Action("Index","Home")'" />
             }
 <hr />

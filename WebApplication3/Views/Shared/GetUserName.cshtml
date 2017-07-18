@@ -1,0 +1,9 @@
+﻿@using WebApplication3.Models;
+@using System.Security.Claims
+@model IEnumerable<Claim>
+
+
+    @foreach(var item in Model)
+    {
+        <dt>@item.ToString()</dt>
+    }

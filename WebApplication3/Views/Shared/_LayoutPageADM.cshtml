@@ -39,7 +39,9 @@
                 </div>
 
                 <span class="logout-spn">
-                    @Html.ActionLink("Logout", "SessionLogOff", "Login")
+                    @Session["admin"]
+
+                    @Html.ActionLink("Logout", "SessionLogOff", "Home")
 
                 </span>
             </div>
@@ -77,6 +79,9 @@
                     </li>
                     <li>
                         @Html.ActionLink("Admin","Index","Admins")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Order", "Index", "Order")
                     </li>
                 </ul>
             </div>

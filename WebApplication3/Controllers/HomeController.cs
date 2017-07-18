@@ -13,10 +13,12 @@ namespace WebApplication3.Controllers
     public class HomeController : Controller
     {
         pjt3hEntities db = new pjt3hEntities();
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            
-            return View(db.Products.Take(6).ToList());
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
+            var product = db.Products.OrderBy(p=>p.price).ToPagedList(pageNumber, pageSize);
+            return View(product);
         }
 
         //public PartialViewResult 
@@ -28,12 +30,12 @@ namespace WebApplication3.Controllers
         //    return View();
         //}
 
-        //public ActionResult Contact()
-        //{
-        //    ViewBag.Message = "Your contact page.";
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
 
-        //    return View();
-        //}
+            return View();
+        }
         public ActionResult Login()
         {
             if (Session["TaiKhoan"] != null)
@@ -52,6 +54,7 @@ namespace WebApplication3.Controllers
                 if (customer.password == password)
                 {
                     Session["TaiKhoan"] = customer.id;
+                    Session["NameCustomer"] = email;
                     return RedirectToAction("ThanhToan", "Cart");
                 }
             }
@@ -76,11 +79,12 @@ namespace WebApplication3.Controllers
 
         
         
-        public  ActionResult SearchProduct(string namePro)
+        public  ActionResult SearchProduct(string namePro,int? page)
         {
 
-            var products = from m in db.Products
-                           select (m);
+            var products = from m in db.Products orderby m.datecreate
+                           select (m)
+                           ;
             if(!string.IsNullOrEmpty(namePro))
             {
                 products = db.Products.Where(p => p.name.Contains(namePro));
@@ -106,11 +110,15 @@ namespace WebApplication3.Controllers
             return PartialView(category.ToList());
         }
 
-        public PartialViewResult _PartialPage1()
+        public PartialViewResult slide_product()
         {
-            var product=db.Products.SingleOrDefault(c=>c.id)
-            return PartialView();
+            var product = db.Products.Take(6).ToList();
+            return PartialView(product);
         }
-
+        public ActionResult SessionLogOff()
+        {
+            Session.Clear();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

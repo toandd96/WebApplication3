@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -41,12 +43,12 @@ namespace WebApplication3.Controllers
                 };
                 objCart.AddToCart(item);
                 Session["Cart"] = objCart;
-               
+
                 return RedirectToAction("Index", "Cart");
             }
             else
-                
-            return RedirectToAction("Index", "Cart");
+
+                return RedirectToAction("Index", "Cart");
         }
 
         public ActionResult UpdateQuantity(int proID, int quantity)
@@ -84,64 +86,86 @@ namespace WebApplication3.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult ThanhToan(string ShipAdress, string ShipPhone)
-        {  
-            if (Session["TaiKhoan"] == null || Session["TaiKhoan"].ToString() == string.Empty)
+        public ActionResult ThanhToan(string ShipAddress, string ShipPhone)
+        {
+            try
             {
-                return RedirectToAction("Login", "Home");
-            }
-            int customId = int.Parse(Session["TaiKhoan"].ToString());
-            var customer = db.customers.Find(customId);
-            Order order = new Order();
-            OrderDetail orderDetails = new OrderDetail();
-            
-            order.customerid = customId;
-            order.orderdate = DateTime.Now;
-            order.status = "Chưa";
-            if (ShipAdress == null || ShipAdress == string.Empty)
-            {
-                order.shipaddress = customer.address;
-            }
-            else
-                order.shipaddress = ShipAdress;
-            if (ShipPhone == null || ShipPhone == string.Empty)
-            {
-                order.shipphone = customer.phone;
-            }
-            else order.shipphone = ShipPhone;
-            var maxitem = db.Orders.Count();
-            ShoppingCartModel model = new ShoppingCartModel();
-            model.Cart = (ShopCart)Session["Cart"];
-            foreach (var item in model.Cart.ListItem)
-            {
-                var product = db.Products.Single(p => p.id == item.Id);
-                var category = db.Categories.Single(c => c.id == product.categoryid);
-                orderDetails.orderid = maxitem + 1;
-                orderDetails.price = item.Price;
-                orderDetails.productid = item.Id;
-                orderDetails.quantity = item.Quantity;
-                order.total = item.Total;
-                product.quantity -= item.Quantity;
-                if(product.quantity==0)
+                if (Session["TaiKhoan"] == null || Session["TaiKhoan"].ToString() == string.Empty)
                 {
-                    category.status = "Hết hàng";
+                    return RedirectToAction("Login", "Home");
                 }
+                int customId = int.Parse(Session["TaiKhoan"].ToString());
+                var customer = db.customers.Find(customId);
+                Order order = new Order();
+                OrderDetail orderDetails = new OrderDetail();
+
+                order.customerid = customId;
+                order.orderdate = DateTime.Now;
+                order.status = "Chưa";
+                if (string.IsNullOrWhiteSpace(ShipAddress))
+                {
+                    order.shipaddress = customer.address;
+                }
+                else
+                    order.shipaddress = ShipAddress;
+                if (string.IsNullOrWhiteSpace(ShipPhone))
+                {
+                    order.shipphone = customer.phone;
+
+
+                }
+                else order.shipphone = ShipPhone;
+                //ShipAddress = customer.address;
+                //ShipPhone = customer.phone;
+                var maxitem = db.Orders.Max(p => p.id).ToString();
+                ShoppingCartModel model = new ShoppingCartModel();
+                model.Cart = (ShopCart)Session["Cart"];
+                foreach (var item in model.Cart.ListItem)
+                {
+                    var product = db.Products.Single(p => p.id == item.Id);
+                    var category = db.Categories.Single(c => c.id == product.categoryid);
+                    orderDetails.orderid = Convert.ToInt32(maxitem) + 1;
+                    orderDetails.price = item.Price;
+                    orderDetails.image = item.Image;
+                    orderDetails.productid = item.Id;
+                    orderDetails.quantity = item.Quantity;
+                    order.total = item.Total;
+                    product.quantity -= item.Quantity;
+                    if (product.quantity == 0)
+                    {
+                        category.status = "Hết hàng";
+                    }
+                }
+
+                db.Orders.Add(order);
+                db.SaveChanges();
+                db.OrderDetails.Add(orderDetails);
+                db.SaveChanges();
+                Session["Cart"] = null;
+                TempData["msg"] = " Chúc mừng bạn đã đặt hàng thành công";
+                return RedirectToAction("Index", "Cart");
             }
-            
-            db.Orders.Add(order);
-            db.SaveChanges();
-            db.OrderDetails.Add(orderDetails);
-            db.SaveChanges();
-            Session["Cart"] = null;
-            TempData["msg"] = " Chúc mừng bạn đã đặt hàng thành công";
-            return RedirectToAction("Index", "Cart");
+            catch (Exception e)
+            {
+                //foreach (var validationErrors in dbEx.EntityValidationErrors)
+                //{
+                //    foreach (var validationError in validationErrors.ValidationErrors)
+                //    {
+                //        Trace.TraceWarning("Property: {0} Error: {1}",
+                //                                validationError.PropertyName,
+                //                                validationError.ErrorMessage);
+                //    }
+                //}
+                return RedirectToAction("Index", "Cart");
+            }
+            //return View();
         }
 
         public ActionResult ThanhToanThanhCong()
         {
             return View();
         }
-        
+
         public ActionResult XoaGioHang()
         {
             ShopCart objCart = (ShopCart)Session["Cart"];

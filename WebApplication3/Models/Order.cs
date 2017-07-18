@@ -27,9 +27,8 @@ namespace WebApplication3.Models
         public string shipnote { get; set; }
         public string status { get; set; }
         public string shipphone { get; set; }
-
-        public double? total { get; set; }
-
+        public Nullable<double> total { get; set; }
+    
         public virtual customer customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }

@@ -44,6 +44,7 @@
           <Property Name="productid" Type="int" Nullable="false" />
           <Property Name="price" Type="float" />
           <Property Name="quantity" Type="int" />
+          <Property Name="image" Type="char" MaxLength="100" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -56,7 +57,7 @@
           <Property Name="shipnote" Type="nvarchar" MaxLength="500" />
           <Property Name="status" Type="nvarchar" MaxLength="500" />
           <Property Name="shipphone" Type="nchar" MaxLength="11" />
-          <Property Name="orderid" Type="int" />
+          <Property Name="total" Type="float" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -262,6 +263,7 @@
           <Property Name="quantity" Type="Int32" />
           <NavigationProperty Name="Order" Relationship="pjt3hModel.FK_OrderDetails_Orders" FromRole="OrderDetail" ToRole="Order" />
           <NavigationProperty Name="Product" Relationship="pjt3hModel.FK_OrderDetails_Product" FromRole="OrderDetail" ToRole="Product" />
+          <Property Name="image" Type="String" MaxLength="100" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -270,12 +272,13 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="orderdate" Type="DateTime" Precision="3" />
           <Property Name="customerid" Type="Int32" />
-          <Property Name="shipaddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="shipaddress" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
           <Property Name="shipnote" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="status" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="shipphone" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="shipphone" Type="String" MaxLength="12" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="customer" Relationship="pjt3hModel.FK_Order_customer" FromRole="Order" ToRole="customer" />
           <NavigationProperty Name="OrderDetails" Relationship="pjt3hModel.FK_OrderDetails_Orders" FromRole="Order" ToRole="OrderDetail" />
+          <Property Name="total" Type="Double" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -420,6 +423,7 @@
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="pjt3hModel.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="image" ColumnName="image" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
                 <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="productid" ColumnName="productid" />
@@ -430,6 +434,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="pjt3hModel.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="shipphone" ColumnName="shipphone" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="shipnote" ColumnName="shipnote" />

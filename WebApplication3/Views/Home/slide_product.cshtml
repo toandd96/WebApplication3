@@ -1,43 +1,63 @@
 ﻿@using WebApplication3.Models;
-
-<section>
-    <div class="container">
+@model List<Product>
+<link href="~/Content/user/css/StyleSheet1.css" rel="stylesheet" />
+<div class="container">
+    <div class="row">
         <div class="row">
-            <div class="col-sm-12">
-                <div id="slider-carousel" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#slider-carousel" data-slide-to="1"></li>
-                        <li data-target="#slider-carousel" data-slide-to="2"></li>
-                    </ol>
-                    @foreach(var item in Model)
-                        { 
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <div class="col-sm-6">
-                                <h1><span>E</span>-SHOPPER</h1>
-                                <h2>Free E-Commerce Template</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                <button type="button" class="btn btn-default get">Get it now</button>
-                            </div>
-                            <div class="col-sm-6">
-                                <img src="images/home/girl1.jpg" class="girl img-responsive" alt="" />
-                                <h2>@item.price</h2>
-                            </div>
-                        </div>
-                       }
-
-                    </div>
-
-                    <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
-                    <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
+            <div class="col-md-9">
+                <h3>
+                    Carousel Product Cart Slider
+                </h3>
+            </div>
+            <div class="col-md-3">
+                <!-- Controls -->
+                <div class="controls pull-right hidden-xs">
+                    <a class="left fa fa-chevron-left btn btn-success" href="#carousel-example"
+                       data-slide="prev"></a><a class="right fa fa-chevron-right btn btn-success" href="#carousel-example"
+                                                data-slide="next"></a>
                 </div>
+            </div>
+        </div>
+        <div id="carousel-example" class="carousel slide hidden-xs" data-ride="carousel">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                        <div class="col-sm-3">
+                            <div class="col-item">
+                                <div class="photo">
+                                    <img src="@item.image" class="co" alt="a" />
+                                </div>
+                                <div class="info">
+                                    <div class="row">
 
+                                        <div class="price col-md-6">
+                                            <h5>
+                                                @item.name
+                                            </h5>
+                                            <h5 class="price-text-color">
+                                                @item.price
+                                            </h5>
+                                        </div>
+                                        <a href="/Cart/ThemVaoGioHang/@item.id" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        <div class="rating hidden-sm col-md-6">
+                                            <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
+                                            </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
+                                            </i><i class="fa fa-star"></i>
+                                        </div>
+
+                                        <div class="clearfix">
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</section>
+    </div>

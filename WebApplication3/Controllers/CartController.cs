@@ -12,6 +12,7 @@ namespace WebApplication3.Controllers
     public class CartController : Controller
     {
         pjt3hEntities db = new pjt3hEntities();
+        List<OrderDetail> listOrderDetails = new List<OrderDetail>();
         // GET: Cart
         public ActionResult Index()
 
@@ -97,7 +98,7 @@ namespace WebApplication3.Controllers
                 int customId = int.Parse(Session["TaiKhoan"].ToString());
                 var customer = db.customers.Find(customId);
                 Order order = new Order();
-                OrderDetail orderDetails = new OrderDetail();
+               
 
                 order.customerid = customId;
                 order.orderdate = DateTime.Now;
@@ -117,35 +118,54 @@ namespace WebApplication3.Controllers
                 else order.shipphone = ShipPhone;
                 //ShipAddress = customer.address;
                 //ShipPhone = customer.phone;
-                var maxitem = db.Orders.Max(p => p.id).ToString();
+                int maxitem;
+                var item1 = db.Orders.Count();
+                int a = 0;
+                if (item1 == a)
+                {
+                    maxitem = 1;
+                }
+                else
+                {
+                    var max = db.Orders.Max(o => o.id).ToString();
+                    maxitem = Convert.ToInt32(max) + 1;
+                }
+
+                
                 ShoppingCartModel model = new ShoppingCartModel();
                 model.Cart = (ShopCart)Session["Cart"];
+                order.total = model.Cart.total();
+                db.Orders.Add(order);
+                db.SaveChanges();
                 foreach (var item in model.Cart.ListItem)
                 {
+                    OrderDetail orderDetails = new OrderDetail();
                     var product = db.Products.Single(p => p.id == item.Id);
                     var category = db.Categories.Single(c => c.id == product.categoryid);
-                    orderDetails.orderid = Convert.ToInt32(maxitem) + 1;
+                    orderDetails.orderid = maxitem;
                     orderDetails.price = item.Price;
                     orderDetails.image = item.Image;
                     orderDetails.productid = item.Id;
                     orderDetails.quantity = item.Quantity;
-                    order.total = item.Total;
+                    
                     product.quantity -= item.Quantity;
                     if (product.quantity == 0)
                     {
                         category.status = "Hết hàng";
                     }
+
+                    db.OrderDetails.Add(orderDetails);
+                   
                 }
 
-                db.Orders.Add(order);
                 db.SaveChanges();
-                db.OrderDetails.Add(orderDetails);
-                db.SaveChanges();
+
+
                 Session["Cart"] = null;
                 TempData["msg"] = " Chúc mừng bạn đã đặt hàng thành công";
                 return RedirectToAction("Index", "Cart");
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 //foreach (var validationErrors in dbEx.EntityValidationErrors)
                 //{

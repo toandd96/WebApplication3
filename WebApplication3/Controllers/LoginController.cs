@@ -29,38 +29,45 @@ namespace WebApplication3.Controllers
         [HttpPost]
         public ActionResult Index(string username, string password, string returnUrl)
         {
-            
-            
-            var admin = db.Admins.SingleOrDefault(c => c.username == username);
-            var cutadmpw = admin.password.ToString();
-            //lấy khoảng trắng trong chuỗi
-            string getspace = cutadmpw.TrimEnd();
-            //xóa khoảng trắng
-            
-            if (admin == null)
+
+            try
             {
-                ViewBag.Error = "Tên đăng nhập có thể chưa được nhập";
-            }
-            else
-            {
-                if (password == getspace.ToString())
+                var admin = db.Admins.SingleOrDefault(c => c.username == username);
+                var cutadmpw = admin.password.ToString();
+                //lấy khoảng trắng trong chuỗi
+                string getspace = cutadmpw.TrimEnd();
+                //xóa khoảng trắng
+
+                if (admin == null)
                 {
-                    Session["admin"] = username;
-                    var ident = new ClaimsIdentity(new[] {
+                    ViewBag.Error = "Tên đăng nhập có thể chưa được nhập";
+                }
+                else
+                {
+                    if (password == getspace.ToString())
+                    {
+                        Session["admin"] = username;
+                        var ident = new ClaimsIdentity(new[] {
                         new Claim(ClaimTypes.NameIdentifier,username),
                     new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
                     "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"),
                         new Claim(ClaimTypes.Name, username),}, DefaultAuthenticationTypes.ApplicationCookie);
-                    HttpContext.GetOwinContext().Authentication.SignIn(
-                        new AuthenticationProperties { IsPersistent = true }, ident
-                        );
-                    return RedirectToLocal(returnUrl);
+                        HttpContext.GetOwinContext().Authentication.SignIn(
+                            new AuthenticationProperties { IsPersistent = true }, ident
+                            );
+                        return RedirectToLocal(returnUrl);
+                    }
+                    else
+                        ViewBag.Error = "Sai mật khẩu nhập lại";
                 }
-                else
-                    ViewBag.Error = "Sai mật khẩu nhập lại";
-               }
-        
-            return View();
+
+                return View();
+            }
+            catch(Exception ex)
+            {
+                ViewBag.Error = "Sai tài khoản hoặc mật khẩu vui lòng nhập lại";
+                return View();
+            }
     }
         public ActionResult SessionLogOff()
         {

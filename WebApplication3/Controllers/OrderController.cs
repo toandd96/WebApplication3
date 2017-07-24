@@ -56,7 +56,7 @@ namespace WebApplication3.Controllers
         public ActionResult Details(int? id)
         {
 
-            var order = db.OrderDetails.ToList();
+            var order = db.OrderDetails.Where(od=>od.orderid==id).ToList();
             return View(order);
         }
     }

@@ -112,7 +112,7 @@ namespace WebApplication3.Controllers
             return PartialView(category.ToList());
         }
 
-        public PartialViewResult slide_product()
+        public PartialViewResult Slide_product()
         {
             var product = db.Products.Take(6).ToList();
             return PartialView(product);

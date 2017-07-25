@@ -86,11 +86,11 @@
                             <ul class="nav navbar-nav">
                                 @if (Session["TaiKhoan"] != null)
                                 {
-                                    <li><a href="#"><i class="fa fa-user"></i> @Session["NameCustomer"]</a></li>
+                                    <li><a href="@Url.Action("Information","Home")"><i class="fa fa-user"></i> @Session["NameCustomer"]</a></li>
                                 }
                                 else
                                 {
-                                    <li><a href="#"><i class="fa fa-user"></i> Account</a></li>}
+                                    <li><a href="@Url.Action("Information","Home")"><i class="fa fa-user"></i> Account</a></li>}
                                 @if (Session["TaiKhoan"] == null)
                                 {
                                     <li><a href="@Url.Action("Index","Register")"><i class="fa fa-sign-in"></i> Register</a></li>}

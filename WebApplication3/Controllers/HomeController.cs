@@ -122,5 +122,20 @@ namespace WebApplication3.Controllers
             Session.Clear();
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult Information()
+        {
+            if(Session["TaiKhoan"]==null)
+            {
+                return RedirectToAction("Login","Home");
+            }
+            else
+            {
+                var idcustomer = Convert.ToInt32(Session["TaiKhoan"]);
+                var customer = db.customers.Find(idcustomer);
+                return View(customer);
+            }
+            
+        }
     }
 }

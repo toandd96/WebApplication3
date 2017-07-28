@@ -2,43 +2,81 @@
 @{
     ViewBag.Title = "Home Page";
 }
-<link href="~/Content/PagedList.css" rel="stylesheet" />
-@using PagedList.Mvc;
 
-@model PagedList.IPagedList<WebApplication3.Models.Product>
+@using WebApplication3.Models
+@model List<Category>
 
-<h2 class="title text-center">Danh sách sản phẩm</h2>
-<div class="col-md-offset-7">@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)</div>
-<div class="col-md-12 row">
-    @foreach (var item in Model)
-    {
-        <div class="col-sm-4 row">
-            <div class="product-image-wrapper" id="">
-                <div class="single-products">
-                    <div class="productinfo text-center">
-                        <img src="@Url.Content(@item.image)" alt="" onclick="" />
-                        <h2>Giá: @string.Format("{0:0,0}", item.price)</h2>
-                        <p>@item.name</p>
-                        <a href="/Cart/ThemVaoGioHang/@item.id" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 
+@*<div class="col-md-offset-7">@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)</div>*@
+
+@foreach (var item in Model)
+{
+
+    var items = item.Products.Take(3).ToList();
+    <h2 class="title text-center">@item.name</h2>
+    <div class="col-md-12 row">
+        
+            @foreach (var p in items)
+            {
+
+                <div class="col-sm-4">
+                    <div class="product-image-wrapper">
+                        <div class="single-products">
+                            <div class="productinfo text-center">
+                                <img src="@p.image" alt="" width="150" />
+                                <h2>Giá: @string.Format("{0:0,0}", @p.price)</h2>
+                                <p>@p.name</p>
+                                <a href="/Cart/ThemVaoGioHang/@p.id" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                            </div>
+                            @*<div class="product-overlay">
+                                    <div class="overlay-content">
+                                        <h2>Giá: @item.Price</h2>
+                                        <p>@item.ProductName</p>
+                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                    </div>
+                                </div>*@
+                        </div>
+                        <div class="choose">
+                            <ul class="nav nav-pills nav-justified">
+                                <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                                <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+  
+}
+
+
+<div class="category-tab">
+    <!--category-tab-->
+    <div class="col-sm-12">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tshirt" data-toggle="tab">T-Shirt</a></li>
+            <li><a href="#blazers" data-toggle="tab">Blazers</a></li>
+            <li><a href="#sunglass" data-toggle="tab">Sunglass</a></li>
+            <li><a href="#kids" data-toggle="tab">Kids</a></li>
+            <li><a href="#poloshirt" data-toggle="tab">Polo shirt</a></li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane fade active in" id="tshirt">
+            <div class="col-sm-3">
+                <div class="product-image-wrapper">
+                    <div class="single-products">
+                        <div class="productinfo text-center">
+                            <img src="images/home/gallery1.jpg" alt="">
+                            <h2>$56</h2>
+                            <p>Easy Polo Black Edition</p>
+                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                        </div>
 
                     </div>
-                    @*<div class="product-overlay">
-                            <div class="overlay-content">
-                                <h2>Giá: @item.Price</h2>
-                                <p>@item.ProductName</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                        </div>*@
-                </div>
-                <div class="choose">
-                    <ul class="nav nav-pills nav-justified">
-                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                    </ul>
                 </div>
             </div>
         </div>
-    }
-
+    </div>
 </div>

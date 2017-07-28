@@ -13,13 +13,13 @@ namespace WebApplication3.Controllers
     public class HomeController : Controller
     {
         pjt3hEntities db = new pjt3hEntities();
-        public ActionResult Index(int? page)
+        public ActionResult Index()
         {
             //get products in homepage
-            int pageSize = 6;
-            int pageNumber = (page ?? 1);
-            var product = db.Products.OrderBy(p => p.price).ToPagedList(pageNumber, pageSize);
-            return View(product);
+
+            var category = db.Categories.Where(c=>c.Products.Count>2).ToList();
+            
+            return View(category);
         }
 
         //public PartialViewResult 
@@ -95,25 +95,17 @@ namespace WebApplication3.Controllers
             return View(products);
         }
 
-        public PartialViewResult _PartialCate()
+        public ActionResult _PartialCate()
         {
 
             return PartialView(db.Products.ToList());
         }
 
-        public PartialViewResult _PartialCateConHang()
-        {
-            var category = db.Categories.Where(ca => ca.status == "Còn hàng").ToList();
-            List<Product> product = new List<Product>();
-            foreach (var item in category)
-            {
-                var sp = db.Products.Where(p => p.categoryid == item.id);
-            }
-            return PartialView(category.ToList());
-        }
+        
 
         public PartialViewResult Slide_product()
         {
+            
             var product = db.Products.Take(6).ToList();
             return PartialView(product);
         }

@@ -918,13 +918,13 @@
     <Content Include="Views\Shared\_PartialPage1.cshtml" />
     <Content Include="Views\Home\SearchProduct.cshtml" />
     <Content Include="Views\Home\_PartialCate.cshtml" />
-    <Content Include="Views\Home\_PartialCateConHang.cshtml" />
     <Content Include="Views\Home\slide_product.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
     <Content Include="Views\Order\Delete.cshtml" />
     <Content Include="Views\Shared\GetUserName.cshtml" />
     <Content Include="Views\Home\Information.cshtml" />
+    <Content Include="Views\Home\_PartialNewUpdate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

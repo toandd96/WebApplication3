@@ -14,7 +14,7 @@
 
     var items = item.Products.Take(3).ToList();
     <div style="clear:both">
-        <h2 class="title text-center">@item.name</h2>
+        <h2 class="title text-center"><a style="color:orange" onclick="location.href='@Url.Action("Index","CategoryUser",new { id=item.id})'">@item.name</a></h2>
         <div class="col-md-12 row">
 
             @foreach (var p in items)

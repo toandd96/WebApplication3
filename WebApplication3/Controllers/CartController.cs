@@ -18,7 +18,7 @@ namespace WebApplication3.Controllers
 
         {
             ViewBag.Tittle = "Giỏ Hàng";
-            ShoppingCartModel model = new ShoppingCartModel();
+            ShoppingCartModel model =new ShoppingCartModel();
             model.Cart = (ShopCart)Session["Cart"];
             return View(model);
         }
@@ -64,7 +64,7 @@ namespace WebApplication3.Controllers
         }
         public ActionResult XoaSanPham(int id)
         {
-            ShopCart objCart = new ShopCart();
+            ShopCart objCart = (ShopCart)Session["Cart"];
             if (objCart != null)
             {
                 objCart.RemoveFromCart(id);

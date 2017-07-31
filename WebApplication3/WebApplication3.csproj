@@ -924,7 +924,6 @@
     <Content Include="Views\Order\Delete.cshtml" />
     <Content Include="Views\Shared\GetUserName.cshtml" />
     <Content Include="Views\Home\Information.cshtml" />
-    <Content Include="Views\Home\_PartialNewUpdate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

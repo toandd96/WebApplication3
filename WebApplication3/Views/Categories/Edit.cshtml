@@ -1,7 +1,7 @@
 ﻿@model WebApplication3.Models.Category
 
 @{
-    ViewBag.Title = "Edit"; Layout = "~/Views/Shared/_LayoutPageADM.cshtml";
+    ViewBag.Title = "Edit"; Layout = null;
 }
 
 <h2>Sửa</h2>
@@ -41,9 +41,6 @@
     </div>
 }
 
-<div>
-    <button class="btn btn-info"  onclick="location.href='@Url.Action("Index", "Categories")'">Quay trở lại</button>
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

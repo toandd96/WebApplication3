@@ -14,7 +14,7 @@ namespace WebApplication3.Controllers
     [Authorize]
     public class ProductsController : Controller
     {
-        private pjt3hEntities db = new pjt3hEntities();
+        pjt3hEntities db = new pjt3hEntities();
 
         public JsonResult GetAllProduct()
         {

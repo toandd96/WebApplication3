@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -8,6 +9,7 @@ using WebApplication3.Models;
 
 namespace WebApplication3.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         pjt3hEntities db = new pjt3hEntities();
@@ -55,9 +57,30 @@ namespace WebApplication3.Controllers
 
         public ActionResult Details(int? id)
         {
-
-            var order = db.OrderDetails.Where(od=>od.orderid==id).ToList();
+            
+            var orderdetail = db.OrderDetails.Where(od=>od.orderid==id).ToList();
+            var order = db.Orders.Find(id);
+            ViewData["status"] = order.status.ToString();
+            return View(orderdetail);
+        }
+        [HttpPost]
+        public ActionResult Details(Order order)
+        {
             return View(order);
+        }
+
+        [HttpPost]
+        public ActionResult Giao_Hang(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var order = db.Orders.Find(id);
+                order.status = "Đã giao hàng";
+                db.Entry(order).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
         }
     }
 }

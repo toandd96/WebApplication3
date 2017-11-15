@@ -1,10 +1,8 @@
 ﻿@model WebApplication3.Models.Category
 
 @{
-    ViewBag.Title = "Delete"; Layout = "~/Views/Shared/_LayoutPageADM.cshtml";
+    ViewBag.Title = "Delete"; Layout = null;
 }
-
-<h2>Xóa</h2>
 
 <h3>Bạn có chắc chắn muốn xóa điều này?</h3>
 <div>
@@ -32,9 +30,8 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Chấp nhận" class="btn btn-danger" /> |
-           <input type="button" class="btn btn-info" onclick="location.href='@Url.Action("Index", "Categories")'" value="Quay trở lại"/>
+        <div class="form-actions no-color col-lg-offset-4">
+            <input type="submit" value="Chấp nhận" class="btn btn-danger" />
         </div>
     }
 </div>

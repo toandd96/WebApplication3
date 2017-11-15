@@ -1,0 +1,68 @@
+﻿@model IEnumerable<WebApplication3.Models.customer>
+
+@{
+    ViewBag.Title = "ViewAll";
+    Layout = null;
+}
+<br />
+
+<table class="table table-hover table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.datecreate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.datecreate)
+            </td>
+            <td width="125">
+                @Html.ActionLink(" ", "Edit", new { id = item.id }, new { @class = "btn btn-success btn-sm fa fa-pencil" })
+                @Html.ActionLink(" ", "Details", new { id = item.id }, new { @class = "btn btn-info btn-sm fa fa-asterisk" })
+                @Html.ActionLink(" ", "Delete", new { id = item.id }, new { @class = "btn btn-danger btn-sm fa fa-eraser" })
+            </td>
+        </tr>
+    }
+
+</table>
+

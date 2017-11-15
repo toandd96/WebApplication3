@@ -13,10 +13,10 @@ namespace WebApplication3.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class pjt3hEntities : DbContext
+    public partial class shop2shopEntities : DbContext
     {
-        public pjt3hEntities()
-            : base("name=pjt3hEntities")
+        public shop2shopEntities()
+            : base("name=shop2shopEntities")
         {
         }
     
@@ -25,7 +25,12 @@ namespace WebApplication3.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<Admin> Admins { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<customer> customers { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }

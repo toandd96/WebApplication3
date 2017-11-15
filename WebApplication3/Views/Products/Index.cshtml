@@ -35,7 +35,7 @@
                 <th>
                     Mô tả sản phẩm
                 </th>
-                <th width="150">Thao tác</th>
+                <th width="100">Thao tác</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -47,8 +47,9 @@
 <script src="~/Content/jquery.dataTables.min.js"></script>
 @*<script src="~/Scripts/dataTables.bootstrap.min.js"></script>*@
 <script type="text/javascript">
-        $(document).ready(function () {
-            $.getJSON("Products/GetAllProduct", function (data) {
+    $(document).ready(
+        function () {
+        $.getJSON('@Url.Action("GetAllProduct","Products")', function (data) {
                 var tr;
                 for (var i = 0; i < data.length; i++) {
                     tr = $('<tr/>');
@@ -58,14 +59,43 @@
                     tr.append("<td>" + data[i].quantity + "</td>");
                     tr.append("<td>" + data[i].information + "</td>");
                     tr.append("<td>" + data[i].description + "</td>");
-                    tr.append("<td><a href='Products/Edit/" +
-                        data[i].id + "'>Sửa</a> | <a href='Products/Details/" +
-                        data[i].id + "'>Chi tiết</a> |  <a href='Products/Delete/" +
-                        data[i].id + "'>Xóa</a></td>");
+                    tr.append("<td><a class='btn btn-success btn-sm fa fa-pencil fa-lg' href='Products/Edit/" +
+                        data[i].id + "'></a> <a class='btn btn-info btn-sm fa fa-asterisk' href='Products/Details/" +
+                        data[i].id + "'></a>  <a class='btn btn-danger btn-sm fa fa-trash-o fa-lg' href='Products/Delete/" +
+                        data[i].id + "'></a></td>");
                     $('table').append(tr);
                 }
                 $('#product').DataTable();
             });
         });
+    $(window).scroll(function () {
+        var wScroll = $(this).scrollTop();
+        var showScrollButton = 50;
+        if (wScroll > showScrollButton) {
+            $('#top').fadeIn();
+        }
+        else {
+            $('#top').fadeOut();
+        }
+    });
+    $('body').append('<a id="top" href="#"> <img src="/image/images.jpg" width="50px" height="150px"/> </a>');
+    $('#top').css({
+        "bottom": "0px",
+        "right": "0px",
+        "position": "fixed",
+        "cursor": "pointer",
+        "z-index": "1",
+        "display": "none",
+        "background-color": "rgba(0,0,0,0.7)",
+        
+        "corlor": "#ffffff"
+    });
+    $('#top').click(function () {
+        $('body,html').animate(
+            {
+                scrollTop: 0
+            }, 500);
+        return false;
+    });
 </script>
 }

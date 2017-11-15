@@ -15,6 +15,8 @@
     <link href="~/Content/admin/assets/css/font-awesome.css" rel="stylesheet" />
     <!-- GOOGLE FONTS-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <!--css notify-->
+    <link src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 </head>
 <body>
 
@@ -30,20 +32,19 @@
                         <span class="icon-bar"></span>
                     </button>
                     <h2>
-                        <a class="glyphicon glyphicon-home" href="#">
+                        <a class="glyphicon glyphicon-home" href="/">
 
 
                         </a>
                     </h2>
 
                 </div>
-
                 <span class="logout-spn">
+                    Xin chào:
                     @Session["admin"]
-
-                    @Html.ActionLink("Logout", "SessionLogOff", "Home")
-
+                    <a href="Login/SessionLogOff"><img src="~/images/images.png" width="100" height="40" /></a>
                 </span>
+
             </div>
         </div>
         <!-- /. NAV TOP  -->
@@ -53,32 +54,32 @@
 
 
 
-                    
+
 
 
                     <li>
                         @Html.ActionLink("About", "About", "Home")
                     </li>
                     <li>
-                        @Html.ActionLink("Contact", "Contact", "Home")  
+                        @Html.ActionLink("Contact", "Contact", "Home")
                     </li>
 
 
                     <li>
-                       @Html.ActionLink("Product","Index", "Products")
+                        @Html.ActionLink("Product", "Index", "Products")
                     </li>
                     <li>
                         @Html.ActionLink("Category", "Index", "Categories")
                     </li>
 
                     <li>
-                       @Html.ActionLink("Supplier", "Index", "Suppliers")
+                        @Html.ActionLink("Supplier", "Index", "Suppliers")
                     </li>
                     <li>
                         @Html.ActionLink("Customer", "Index", "customers")
                     </li>
                     <li>
-                        @Html.ActionLink("Admin","Index","Admins")
+                        @Html.ActionLink("Admin", "Index", "Admins")
                     </li>
                     <li>
                         @Html.ActionLink("Order", "Index", "Order")
@@ -97,7 +98,7 @@
                 </div>
                 <!-- /. ROW  -->
                 <hr />
-                
+
                 <!-- /. ROW  -->
                 @RenderBody()
             </div>
@@ -107,7 +108,7 @@
         <!-- /. PAGE INNER  -->
     </div>
     <!-- /. PAGE WRAPPER  -->
-    
+
     <div class="footer">
 
 
@@ -129,7 +130,12 @@
     @*<script src="/assets/js/bootstrap.min.js"></script>*@
     <!-- CUSTOM SCRIPTS -->
     @*<script src="/assets/js/custom.js"></script>*@
+    
     <script src="~/Content/admin/assets/js/custom.js"></script>
+    <script src="~/Content/user/js/Script.js"></script>
+    <script src="~/Scripts/notify.min.js"></script>
+    @*<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
     @RenderSection("Scripts", required: false)
 
 </body>

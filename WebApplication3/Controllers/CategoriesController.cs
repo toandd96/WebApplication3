@@ -5,55 +5,88 @@ using System.Net;
 using System.Web.Mvc;
 using WebApplication3.Models;
 using PagedList;
+using System;
+using System.Collections.Generic;
+
 namespace WebApplication3.Controllers
 {
     [Authorize]
     public class CategoriesController : Controller
     {
-        private pjt3hEntities db = new pjt3hEntities();
+        pjt3hEntities db = new pjt3hEntities();
 
         // GET: Categories
-        public ActionResult Index(string searchString,string sortorder,int? page,string currenFilter,Product product)
+
+
+        public ActionResult Index( string sortorder, int? page, string currenFilter, Product product)
         {
-            
             ViewBag.CurrentSort = sortorder;
-            ViewBag.NameSort = string.IsNullOrEmpty(sortorder)?"name_desc":string.Empty;
+            ViewBag.NameSort = string.IsNullOrEmpty(sortorder) ? "name_desc" : string.Empty;
             var category = from m in db.Categories
                            select (m);
-            if(searchString!=null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currenFilter;
-            }
             switch (sortorder)
             {
                 case "name_desc":
                     category = category.OrderByDescending(m => m.name);
-                        break;
+                    break;
                 default:
                     category = category.OrderBy(m => m.name);
                     break;
             }
 
-            ViewBag.currentFilter = searchString;
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                category = category.Where(c => c.name.Contains(searchString));
-            }
-            var a = new SelectList(db.Categories, "id", "name",category.ToList());
-            
-            
+            var a = new SelectList(db.Categories, "id", "name", category.ToList());
+
+
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            return View(category.ToPagedList(pageNumber,pageSize));
-            // return View(db.Categories.ToList());
+            return View(category.ToPagedList(pageNumber, pageSize));
+
         }
 
+        public ActionResult Viewallcategories( string sortorder, int? page, string currenFilter, Product product)
+        {
+
+            ViewBag.CurrentSort = sortorder;
+            ViewBag.NameSort = string.IsNullOrEmpty(sortorder) ? "name_desc" : string.Empty;
+            var category = from m in db.Categories
+                           select (m);
+            //if (searchString != null)
+            //{
+            //    page = 1;
+            //}
+            //else
+            //{
+            //    searchString = currenFilter;
+            //}
+            switch (sortorder)
+            {
+                case "name_desc":
+                    category = category.OrderByDescending(m => m.name);
+                    break;
+                default:
+                    category = category.OrderBy(m => m.name);
+                    break;
+            }
+
+            //ViewBag.currentFilter = searchString;
+            //if (!string.IsNullOrEmpty(searchString))
+            //{
+            //    category = category.Where(c => c.name.Contains(searchString));
+            //}
+            var a = new SelectList(db.Categories, "id", "name", category.ToList());
+
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(category.ToPagedList(pageNumber, pageSize));
+            // return View(db.Categories.ToList());
+        }
+        IEnumerable<Category> getallCategories()
+        {
+            return db.Categories.ToList<Category>();
+        }
         // GET: Categories/Details/5
-        public ActionResult Details(int? id,Product product)
+        public ActionResult Details(int? id, Product product)
         {
             if (id == null)
             {
@@ -64,7 +97,7 @@ namespace WebApplication3.Controllers
             {
                 return HttpNotFound();
             }
-            
+
             return View(category);
         }
 
@@ -87,11 +120,11 @@ namespace WebApplication3.Controllers
                 category.status = a.ToString();
                 db.Categories.Add(category);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Categories");
             }
-
             return View(category);
         }
+    
 
         // GET: Categories/Edit/5
         public ActionResult Edit(int? id)
@@ -119,7 +152,7 @@ namespace WebApplication3.Controllers
             {
                 db.Entry(category).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Categories");
             }
             return View(category);
         }
@@ -141,13 +174,12 @@ namespace WebApplication3.Controllers
 
         // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Category category = db.Categories.Find(id);
             db.Categories.Remove(category);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Categories");
         }
 
         protected override void Dispose(bool disposing)

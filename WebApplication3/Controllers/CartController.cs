@@ -98,7 +98,7 @@ namespace WebApplication3.Controllers
                 int customId = int.Parse(Session["TaiKhoan"].ToString());
                 var customer = db.customers.Find(customId);
                 Order order = new Order();
-               
+
 
                 order.customerid = customId;
                 order.orderdate = DateTime.Now;
@@ -131,7 +131,7 @@ namespace WebApplication3.Controllers
                     maxitem = Convert.ToInt32(max) + 1;
                 }
 
-                
+
                 ShoppingCartModel model = new ShoppingCartModel();
                 model.Cart = (ShopCart)Session["Cart"];
                 order.total = model.Cart.total();
@@ -147,7 +147,7 @@ namespace WebApplication3.Controllers
                     orderDetails.image = item.Image;
                     orderDetails.productid = item.Id;
                     orderDetails.quantity = item.Quantity;
-                    
+
                     product.quantity -= item.Quantity;
                     if (product.quantity == 0)
                     {
@@ -155,7 +155,7 @@ namespace WebApplication3.Controllers
                     }
 
                     db.OrderDetails.Add(orderDetails);
-                   
+
                 }
 
                 db.SaveChanges();
@@ -176,11 +176,12 @@ namespace WebApplication3.Controllers
                 //                                validationError.ErrorMessage);
                 //    }
                 //}
-                return RedirectToAction("Index", "Cart");
+                ViewBag.msg=ex;
+                //return RedirectToAction("Index", "Cart");
             }
-            //return View();
+            return View();
         }
-
+        
         public ActionResult ThanhToanThanhCong()
         {
             return View();

@@ -1,9 +1,11 @@
 ﻿@model IEnumerable<WebApplication3.Models.Order>
-
 @{
     Layout = "~/Views/Shared/_LayoutPageADM.cshtml";
 }
-<table class="table">
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Content/user/js/Script.js"></script>
+<h2 class="text-center">Các đơn hàng được đặt</h2>
+<table class="table table-striped table-responsive">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.orderdate)
@@ -23,35 +25,56 @@
         <th>
             @Html.DisplayNameFor(model => model.customer.name)
         </th>
-        <th></th>
+        <th width="105">Đã giao hàng</th>
+        <th style="text-align:center;">Thao tác</th>
+        
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.orderdate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.shipaddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.shipnote)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.shipphone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.customer.name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.orderdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.shipaddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.shipnote)
+            </td>
+            <td class="status">
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.shipphone)
+            </td>
+            <td>
+                <a href="customers/details/@item.customer.id">@Html.DisplayFor(modelItem => item.customer.name)</a>
+            </td>
+            <td style="text-align:center;"><input type="checkbox" onclick="giao_hang('@Url.Action("Giao_Hang", "Order", new { id = item.id})')" /></td>
+            <td width="90">
+                @Html.ActionLink(" ", "Details", new { id = item.id }, new { @class = "btn btn-info fa fa-asterisk btn-sm" })
+                @Html.ActionLink(" ", "Delete", new { id = item.id }, new { @class = "btn btn-danger fa fa-eraser btn-sm" })
+            </td>
+            
+
+        </tr>
+    }
 
 </table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var checkbox = $(":checkbox");
+        var status = $('.status');
+        for (var i = 0; i < checkbox.length; i++) {
+            $(checkbox[i]).attr("disabled", true);
+            $(checkbox[i]).attr("checked", true);
+            var chuoi = ($(status[i]).text());
+            var chuoisosanh = $.trim(chuoi);
+            if (chuoisosanh != "Đã giao hàng") {
+                $(checkbox[i]).removeAttr("disabled", true);
+                $(checkbox[i]).removeAttr('checked', true)
+            }
+        }
+    });
+</script>

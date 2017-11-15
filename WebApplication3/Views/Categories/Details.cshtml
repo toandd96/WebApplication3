@@ -1,7 +1,7 @@
 ﻿@model WebApplication3.Models.Category
 
 @{
-    ViewBag.Title = "Details"; Layout = "~/Views/Shared/_LayoutPageADM.cshtml";
+    ViewBag.Title = "Details"; Layout = null;
 }
 
 <h2>Chi tiết</h2>
@@ -29,6 +29,5 @@
     </dl>
 </div>
 <p>
-    <button class="btn btn-success" onclick="location.href='@Url.Action("Edit","Categories",new { id=Model.id})'">Sửa</button> |
-    <button class="btn btn-info"  onclick="location.href='@Url.Action("Index", "Categories")'">Quay trở lại</button>
+    <button class="btn btn-success col-lg-offset-4" onclick="Edit('@Url.Action("Edit", "Categories", new { id = Model.id })')">Sửa</button>
 </p>

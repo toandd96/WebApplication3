@@ -13,7 +13,7 @@ namespace WebApplication3.Controllers
     [Authorize]
     public class SuppliersController : Controller
     {
-        private pjt3hEntities db = new pjt3hEntities();
+        pjt3hEntities db = new pjt3hEntities();
 
         // GET: Suppliers
         public ActionResult Index()

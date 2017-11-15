@@ -16,7 +16,7 @@ namespace WebApplication3.Controllers
     [Authorize]
     public class customersController : Controller
     {
-        private pjt3hEntities db = new pjt3hEntities();
+        pjt3hEntities db = new pjt3hEntities();
 
         // GET: customers
         public ActionResult Index()
@@ -186,5 +186,14 @@ namespace WebApplication3.Controllers
         //    }
         //    return RedirectToAction("/");
         //}
+        [HttpGet]
+        public ActionResult ViewAll()
+        {
+            return View(GetCustomer());
+        }
+        IEnumerable<customer> GetCustomer()
+        {
+            return db.customers.ToList<customer>();
+        }
     }
 }

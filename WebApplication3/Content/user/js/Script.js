@@ -111,3 +111,16 @@ function giao_hang(url) {
             }
         });
 }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#image_edit').removeAttr('src');
+                $('#image_edit').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }

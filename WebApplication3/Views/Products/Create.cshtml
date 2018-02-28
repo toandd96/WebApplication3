@@ -42,7 +42,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="file" id="image" name="upload"/>
+                <img src="~/image/NoProduct.png" class="img-responsive img-thumbnail" id="image_edit" />
+                <input type="file" id="image" name="upload" onchange="readURL(this);"/>
             </div>
         </div>
 
@@ -97,7 +98,3 @@
 <div>
     <button class="btn btn-success" onclick="location.href='@Url.Action("Index","Products")'">Quay trở lại</button>
 </div>
-
-@section Scripts {
-    
-}

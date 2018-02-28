@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -22,14 +20,14 @@ namespace WebApplication3.Controllers
             return Json(from pro in product
                         select new
                         {
-                            id=pro.id,
-                            name=pro.name,
-                            image=pro.image,
-                            price=pro.price,
-                            quantity=pro.quantity,
-                            information=pro.information,
-                            datecreate=pro.datecreate,
-                            description=pro.description
+                            pro.id,
+                            pro.name,
+                            pro.image,
+                            pro.price,
+                            pro.quantity,
+                            pro.information,
+                            pro.datecreate,
+                            pro.description
                         },JsonRequestBehavior.AllowGet);
         }
         // GET: Products
@@ -77,8 +75,11 @@ namespace WebApplication3.Controllers
                 if(upload != null && upload.ContentLength>0)
                 {
                     string filename = Path.GetFileName(upload.FileName);
-                    string path = Path.Combine(Server.MapPath("~/image"),filename);
-                    upload.SaveAs(path);
+                    if (filename != null)
+                    {
+                        string path = Path.Combine(Server.MapPath("~/image"),filename);
+                        upload.SaveAs(path);
+                    }
                     product.image = "/image/" + filename;
                 }
                 else
@@ -86,7 +87,7 @@ namespace WebApplication3.Controllers
                     product.image = "/image/noproduct.PNG";
                 }
                 product.datecreate = DateTime.Now;
-                category.status = "Còn hàng";
+                if (category != null) category.status = "Còn hàng";
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -127,26 +128,22 @@ namespace WebApplication3.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var currentProduct = db.Products.Find(product.id);
+                var currentProduct = db.Products.AsNoTracking().FirstOrDefault(p => p.id==(product.id));
 
                 if (upload != null && upload.ContentLength > 0)
                 {
                     string fileName = Path.GetFileName(upload.FileName);
-                    string path = Path.Combine(Server.MapPath("~/image"), fileName);
-                    upload.SaveAs(path);
+                    if (fileName != null)
+                    {
+                        string path = Path.Combine(Server.MapPath("~/image"), fileName);
+                        upload.SaveAs(path);
+                    }
                     product.image = "/image/" + fileName;
                 }
-
-
-                //currentProduct.name = product.name;
-                //currentProduct.supplierid = product.supplierid;
-                //currentProduct.categoryid = product.categoryid;
-                //// currentProduct.ProductImage = product.ProductImage;
-                //currentProduct.price = product.price;
-                //currentProduct.quantity = product.quantity;
-                //currentProduct.information = product.information;
-                //currentProduct.description = product.description;
-                //currentProduct.datecreate = DateTime.Now;
+                if(product.image == null || upload== null)
+                {
+                    if (currentProduct != null) product.image = currentProduct.image;
+                }
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -178,7 +175,7 @@ namespace WebApplication3.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Product product = db.Products.Find(id);
-            db.Products.Remove(product);
+            if (product != null) db.Products.Remove(product);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
